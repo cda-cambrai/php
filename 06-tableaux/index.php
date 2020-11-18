@@ -43,11 +43,11 @@ foreach ($contacts as $index => $contact) {
 }
 
 // Comment stocker plusieurs contacts dans un tableau ?
-// On pourrait utiliser un tableau multidimensionnel à 2 niveaux
+// On pourrait utiliser un tableau multidimensionnel à 3 niveaux
 $contacts = [
-    ['nom' => 'Mota', 'prenom' => 'Matthieu'],
-    ['nom' => 'Smaga', 'prenom' => 'Michael'],
-    ['nom' => 'Boulanger', 'prenom' => 'Julien']
+    ['nom' => 'Mota', 'prenom' => 'Matthieu', 'adresses' => ['A', 'B']],
+    ['nom' => 'Smaga', 'prenom' => 'Michael', 'adresses' => ['A', 'B']],
+    ['nom' => 'Boulanger', 'prenom' => 'Julien', 'adresses' => ['A', 'B', 'C']]
 ];
 
 // Comment récupèrer Michael Smaga ?
@@ -57,6 +57,13 @@ echo '<br />';
 // Comment parcourir un tableau multidimensionnel ?
 foreach ($contacts as $contact) {
     // var_dump($contact);
-    echo $contact['prenom'] . ' ' . $contact['nom'];
-    echo '<br />';
+    echo $contact['prenom'] . ' ' . $contact['nom'] . ' (';
+
+    // Si je veux parcourir toutes les adresses d'une personne
+    // 3ème niveau du tableau
+    foreach ($contact['adresses'] as $adresse) {
+        echo $adresse . ', ';
+    }
+
+    echo ') <br />';
 }
