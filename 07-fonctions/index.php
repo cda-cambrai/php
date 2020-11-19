@@ -17,6 +17,8 @@ function hello($name, $lang = 'fr') {
         'es' => 'Hola',
     ];
 
+    // Une fonction retourne toujours quelque chose
+    // et surtout elle s'arrête au premier return
     return $translations[$lang].' '.$name;
 }
 
