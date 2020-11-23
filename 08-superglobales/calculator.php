@@ -56,7 +56,10 @@
 
         ?>
 
-        <form method="POST">
+        <!--
+            On peut séparer le traitement PHP dans un autre fichier.
+         -->
+        <form method="POST" action="calcul.php">
             <label for="number1">Nombre 1</label>
             <input type="text" class="form-control" name="number1" id="number1"> <br />
 
