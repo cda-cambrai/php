@@ -33,7 +33,8 @@
             }
         ?>
 
-        <form class="d-flex">
+        <!-- Le autocomplete permet d'enlever l'historique du navigateur -->
+        <form class="d-flex" autocomplete="off">
             <!-- Le name du input est très important pour que PHP
             puisse savoir ce qu'il doit mettre comme clé dans $_GET -->
             <input type="text" class="form-control" name="q"
@@ -61,6 +62,25 @@
             var_dump($_GET);
         ?>
 
+        <!-- On a également un $_POST en PHP -->
+        <!-- Par exemple, on se sert de $_POST pour "cacher" les données dans l'URL -->
+        <h2>Formulaire avec $_POST</h2>
+
+        <!-- Pour utiliser $_POST, on a juste à changer la méthode du formulaire -->
+        <form method="POST">
+            <input type="password" name="password" class="form-control">
+
+            <button class="btn btn-primary">Accès à la NASA</button>
+        </form>
+
+        <?php
+            var_dump($_POST);
+            // Si le mot de passe est bon, on a accès au document secret
+            // On va imaginer que le mot de passe doit être abcdef
+            if (isset($_POST['password']) && $_POST['password'] === 'abcdef') {
+                echo 'INFO SECRETE: Nous sommes en confinement';
+            }
+        ?>
     </div>
 </body>
 </html>
