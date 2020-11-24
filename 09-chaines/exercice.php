@@ -69,6 +69,10 @@ function conjugate($verb) {
     return $result;
 }
 
+$tableau = ['A', 'B', 'C'];
+// On peut fusionner 2 tableaux en PHP
+$tableau = array_merge(['A'], ['B', 'C']); // Renvoie ['A', 'B', 'C']
+
 // développer
 echo conjugate('chercher') . '<br />';
 echo conjugate('ajouter') . '<br />';
@@ -84,3 +88,49 @@ Ils cherchent
 */
 
 // Attention aux exceptions => ajouter, manger
+
+// @todo Corriger l'exo des statistiques
+
+?>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conjugaison et acronyme</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <?php
+            // Vérification et traitement du formulaire
+            if (!empty($_POST['acronym'])) {
+                echo '<h3>Génération acronyme</h3>';
+                // Avec la fonction précédente, on doit juste passer la valeur dans $_POST
+                echo acronym($_POST['acronym']);
+            }
+            
+            // S'il a saisi un verbe dans le 2ème champ, on conjugue la valeur
+            if (!empty($_POST['verb'])) {
+                echo '<h3>Génération verbe</h3>';
+                // Idem, on utilise la fonction qui a été créee juste au dessus
+                echo conjugate($_POST['verb']);
+            }
+        ?>
+
+        <form method="POST">
+            <label for="acronym">Acronyme</label>
+            <input type="text" name="acronym" id="acronym" class="form-control"> <br />
+
+            <label for="verb">Verbe</label>
+            <input type="text" name="verb" id="verb" class="form-control"> <br />
+
+            <!-- On aurait pu aussi ajouter un select ou un radio pour choisir acronyme ou conjugaison -->
+
+            <button class="btn btn-primary">Exécuter</button>
+        </form>
+    </div>
+</body>
+</html>
