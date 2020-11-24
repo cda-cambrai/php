@@ -38,7 +38,7 @@
                 $validSubjects = ['Proposition de stage', 'Proposition d\'emploi', 'Demande de projet'];
                 // En gros, on veut vérifier que le sujet saisi est dans le tableau
                 if (!in_array($subject, $validSubjects)) {
-                    $errors['sujet'] = 'Le sujet n\'est pas valide';
+                    $errors['subject'] = 'Le sujet n\'est pas valide';
                 }
 
                 // Vérifier le message (15 caractères)
