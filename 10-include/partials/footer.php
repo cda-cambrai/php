@@ -1,3 +1,6 @@
-<footer class="container">
-    Le footer
-</footer>
+    <footer class="container">
+        Le footer
+    </footer>
+
+</body>
+</html>
