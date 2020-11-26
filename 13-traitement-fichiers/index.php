@@ -35,7 +35,7 @@ $fichier = fopen('mes-commandes.txt', 'a+');
                 // Si on veut passer à la ligne, on peut utiliser une constante spéciale
                 fwrite($fichier, $prenom.' a commandé un livre le 26/11/2020'.PHP_EOL);
                 // Avec cette ligne, on n'a plus besoin de faire le fopen ni le fwrite
-                file_put_contents('mes-commandes.txt', $prenom.' a commandé un livre le 26/11/2020'.PHP_EOL);
+                file_put_contents('mes-commandes.txt', $prenom.' a commandé un livre le 26/11/2020'.PHP_EOL, FILE_APPEND);
 
                 echo 'Votre commande arrive dans 3 jours';
                 fclose($fichier); // On ferme le fichier, pas vraiment important
