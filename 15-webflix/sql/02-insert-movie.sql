@@ -6,6 +6,7 @@
 
 -- Ce code évite les doublons
 SET FOREIGN_KEY_CHECKS = 0;
+-- Supprime tous les films et remets les IDs à zéro
 TRUNCATE TABLE webflix.movie;
 SET FOREIGN_KEY_CHECKS = 1;
 
