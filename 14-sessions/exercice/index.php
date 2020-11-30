@@ -17,6 +17,8 @@
                 $pseudo = $_POST['pseudo'];
                 $password = $_POST['password'];
 
+                // @todo Corriger cet exercice avec la partie inscription
+
                 // Aide pour la slide 2
                 $_SESSION['users'][] = ['pseudo' => $pseudo, 'password' => $password];
 
