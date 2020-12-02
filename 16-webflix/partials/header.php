@@ -1,6 +1,8 @@
 <?php
 // On inclus tous les fichiers de configuration du site
-require '../config/database.php'; ?>
+require '../config/database.php';
+require '../config/functions.php';
+?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -31,22 +33,25 @@ require '../config/database.php'; ?>
                     <?php
                         /*
                          * 1. On doit écrire ici une requête qui récupère les catégories
-                         * 2. Ensuite, on va parcourir le tableau de catégorir et "remplir" le dropdown
+                         * 2. Ensuite, on va parcourir le tableau de catégorie et "remplir" le dropdown
                          *    avec ces catégories
                          * 3. BONUS: Ranger le code PHP dans une fonction getCategories();
                          *    Idéalement, on mets la fonction dans le fichier functions.php (à inclure)
+                         *    La fonction renvoie un tableau de catégories
                          *    $categories = getCategories();
                          */
+                        // Je récupère les catégories dans la BDD
+                        // $categories = $db->query('SELECT * FROM `category` ORDER BY `name`')->fetchAll();
+                        $categories = getCategories();
                     ?>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown">
-                            Dropdown
+                    <li class="nav-item dropdown pl-3">
+                        <a class="btn btn-outline-danger dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown">
+                            Nos catégories
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                            <?php foreach ($categories as $category) { ?>
+                                <a class="dropdown-item" href="#"><?= $category['name']; ?></a>
+                            <?php } ?>
                         </div>
                     </li>
                 </ul>
