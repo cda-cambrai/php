@@ -15,6 +15,7 @@
  */
 function getCategories() {
     global $db; // On utilise la variable $db (PDO)
+    // Le ORDER BY sert uniquement à trier par ordre alphabétique
     $query = $db->query('SELECT * FROM `category` ORDER BY `name`');
 
     return $query->fetchAll();
