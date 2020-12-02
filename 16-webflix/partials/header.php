@@ -1,3 +1,7 @@
+<?php
+// On inclus tous les fichiers de configuration du site
+require '../config/database.php'; ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -24,6 +28,16 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Nos films</a>
                     </li>
+                    <?php
+                        /*
+                         * 1. On doit écrire ici une requête qui récupère les catégories
+                         * 2. Ensuite, on va parcourir le tableau de catégorir et "remplir" le dropdown
+                         *    avec ces catégories
+                         * 3. BONUS: Ranger le code PHP dans une fonction getCategories();
+                         *    Idéalement, on mets la fonction dans le fichier functions.php (à inclure)
+                         *    $categories = getCategories();
+                         */
+                    ?>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown">
                             Dropdown
