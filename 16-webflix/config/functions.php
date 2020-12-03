@@ -23,11 +23,20 @@ function getCategories() {
 
 /**
  * Permet de récupèrer les films dans la BDD
+ * Le paramètre $orderBy permet de trier la requête
  */
-function getMovies() {
+function getMovies($orderBy) {
     global $db;
     // backtick = Alt Gr + 7 = ``
-    $query = $db->query('SELECT * FROM `movie`');
+    // Pour éviter les injections SQL, on va vérifier le paramètre orderBy
+    // Idéalement, on utilisera une requête préparée...
+    if (!in_array($orderBy, ['id', 'title', 'duration', 'released_at'])) {
+        // Si $orderBy vaut autre chose que id, title, duration ou released_at
+        // on le force à id
+        $orderBy = 'id';
+    }
+
+    $query = $db->query('SELECT * FROM `movie` ORDER BY '.$orderBy.' ASC');
 
     return $query->fetchAll();
 }
