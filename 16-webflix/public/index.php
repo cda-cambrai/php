@@ -32,25 +32,49 @@ echo '</div>'; */
  *    les 9 derniers films par date de sortie dont le champ cover n'est pas null.
  * 4. Pour la boucle, on part d'un tableau de 9 éléments et on doit l'afficher dans le code HTML ci-dessous
  */
-
+$carouselMovies = $db->query('SELECT * FROM movie WHERE cover IS NOT NULL ORDER BY released_at DESC LIMIT 9')->fetchAll();
 ?>
 
-<div class="carousel-inner">
-    <div class="carousel-item active">
-        <img src="..." class="d-block w-100" alt="...">
-        <img src="..." class="d-block w-100" alt="...">
-        <img src="..." class="d-block w-100" alt="...">
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+        <?php foreach ($carouselMovies as $index => $movie) {
+            /* if ($index === 0) { // Si on est sur le premier film
+                echo '<div class="carousel-item active">';
+            } else {
+                echo '<div class="carousel-item">';
+            } */
+        ?>
+            <!-- On peut écrire un if sur un seul ligne grâce au ternaire -->
+            <!-- ? équivaut à if () { } -->
+            <!-- : équivaut au else -->
+            <!-- On peut aussi faire ($index !== 0) ?: 'active'; -->
+            <?php if ($index % 3 === 0) { ?>
+                <div class="carousel-item <?php echo ($index === 0) ? 'active' : ''; ?>">
+                    <div class="d-flex">
+            <?php } ?>
+
+                <img src="assets/uploads/<?= $movie['cover']; ?>" class="d-block" alt="<?= $movie['title']; ?>">
+
+            <?php if (($index + 1) % 3 === 0) { ?>
+                    </div> <!-- Fin de la div .d-flex -->
+                </div>
+            <?php } ?>
+
+        <?php } ?>
     </div>
-    <div class="carousel-item">
-        <img src="..." class="d-block w-100" alt="...">
-        <img src="..." class="d-block w-100" alt="...">
-        <img src="..." class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-        <img src="..." class="d-block w-100" alt="...">
-        <img src="..." class="d-block w-100" alt="...">
-        <img src="..." class="d-block w-100" alt="...">
-    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
 </div>
 
 <?php

@@ -10,3 +10,9 @@ body {
 .card-title {
     min-height: 50px;
 }
+
+.carousel-item img {
+    height: 200px;
+    object-fit: cover;
+    width: 33.33%;
+}
