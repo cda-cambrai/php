@@ -12,7 +12,7 @@ body {
 }
 
 .carousel-item img {
-    height: 200px;
+    height: 300px;
     object-fit: cover;
     width: 33.33%;
 }

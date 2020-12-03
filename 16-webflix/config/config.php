@@ -10,3 +10,5 @@
  | Titre du site, information de connexions à la BDD
  |
 */
+
+$pageActive = basename($_SERVER['PHP_SELF']);

@@ -89,13 +89,13 @@ $carouselMovies = $db->query('SELECT * FROM movie WHERE cover IS NOT NULL ORDER 
 $randomMovies = $db->query('SELECT *, YEAR(released_at) as year FROM movie ORDER BY RAND() LIMIT 4')->fetchAll();
 ?>
 
-<div class="container">
+<div class="container mt-4 mb-5">
     <h2>Sélection de films aléatoire</h2>
 
     <div class="row">
         <?php foreach ($randomMovies as $movie) { ?>
-            <div class="col-3">
-                <div class="card mb-4">
+            <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+                <div class="card shadow mb-4">
                     <img src="assets/uploads/<?= $movie['cover']; ?>" class="card-img-top" alt="<?= $movie['title']; ?>">
                     <div class="card-body">
                         <h5 class="card-title"><?= $movie['title']; ?></h5>

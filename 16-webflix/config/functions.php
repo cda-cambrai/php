@@ -20,3 +20,14 @@ function getCategories() {
 
     return $query->fetchAll();
 }
+
+/**
+ * Permet de récupèrer les films dans la BDD
+ */
+function getMovies() {
+    global $db;
+    // backtick = Alt Gr + 7 = ``
+    $query = $db->query('SELECT * FROM `movie`');
+
+    return $query->fetchAll();
+}
