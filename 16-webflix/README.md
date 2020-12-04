@@ -56,14 +56,6 @@ Voici les tables à créer :
     - cover
     - category_id
 
-- comment
-    - id
-    - nickname
-    - message
-    - note
-    - created_at
-    - movie_id
-
 - category
     - id
     - name
@@ -78,18 +70,31 @@ Voici les tables à créer :
     - movie_id
     - actor_id
 
+1 film peut avoir 0 ou N commentaires (1 commentaire est lié à 1 film)
+
+- comment
+    - id (PK, NN, AI)
+    - nickname (Obligatoire) Chaine courte
+    - message (Obligatoire) Chaine longue
+    - note (Obligatoire) Entier
+    - created_at (Obligatoire) Date et heure
+    - movie_id (Obligatoire) Clé êtrangère
+
 - user
-    - id
-    - email
-    - username
-    - password
-    - token
-    - requested_at
+    - id (PK, NN, AI)
+    - email (Obligatoire) Chaine courte UNIQUE
+    - username (Obligatoire) Chaine courte UNIQUE
+    - password (Obligatoire) Chaine courte 255 !!!
+    - token (Pas obligatoire) Chaine courte
+    - requested_at (Pas obligatoire) Date et heure
+
+1 user peut avoir 0 ou N paiements (1 paiement est lié à 1 user)
+1 film peut avoir été acheté 0 ou N fois (1 paiement est lié à 1 film)
 
 - payment
-    - id
-    - stripe_id
-    - status
-    - amount
-    - user_id
-    - movie_id
+    - id (PK, NN, AI)
+    - stripe_id (Obligatoire) Chaine courte
+    - status (Obligatoire) Chaine courte
+    - amount (Obligatoire) Entier
+    - user_id (Obligatoire) Clé êtrangère
+    - movie_id (Obligatoire) Clé êtrangère
