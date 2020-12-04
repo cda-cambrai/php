@@ -40,3 +40,15 @@ function getMovies($orderBy) {
 
     return $query->fetchAll();
 }
+
+/**
+ * Permet de rechercher un film dans la BDD
+ * La fonction nous renvoie un tableau de films
+ */
+function searchMovie($q) {
+    global $db;
+
+    $query = $db->query('SELECT * FROM `movie` WHERE `title` LIKE "%'.$q.'%"');
+
+    return $query->fetchAll();
+}
