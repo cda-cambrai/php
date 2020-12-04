@@ -27,7 +27,9 @@ Optionnellement, on pourra réaliser un back office pour que l'administrateur pu
 ## Les pages
 
 - X `public/index.php` : Page d'accueil du site qui affiche 4 films aléatoires de la BDD ainsi qu'un carousel.
-- `public/movie_list.php` : Lister tous les films de la BDD. On peut filter les films par durée, nom etc.
+- X `public/movie_list.php` : Lister tous les films de la BDD. On peut filtrer les films par durée, nom etc.
+- `public/movie_search.php` : Système de recherche
+- `public/category_single.php` : Voir les films d'une catégorie
 - `public/movie_single.php` : La page d'un seul film.
 - `public/movie_add.php` : Permet d'ajouter un film. On doit vérifier que l'utilisateur soit connecté.
 - `public/movie_update.php` : Permet de modifier un film. On doit vérifier que l'utilisateur soit connecté.

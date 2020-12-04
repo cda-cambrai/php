@@ -42,6 +42,17 @@ $carouselMovies = $db->query('SELECT * FROM movie WHERE cover IS NOT NULL ORDER 
         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
     </ol>
     <div class="carousel-inner">
+        <?php /* Code alternatif pour afficher les films dans les slides
+        foreach ([0, 3, 6] as $key) { ?>
+            <div class="carousel-item <?php if ($key === 0) { echo 'active'; } ?>">
+                <div class="d-flex">
+                    <img src="assets/uploads/<?= $carouselMovies[$key]['cover']; ?>" class="d-block" alt="<?= $carouselMovies[$key]['title']; ?>">
+                    <img src="assets/uploads/<?= $carouselMovies[$key+1]['cover']; ?>" class="d-block" alt="<?= $carouselMovies[$key+1]['title']; ?>">
+                    <img src="assets/uploads/<?= $carouselMovies[$key+2]['cover']; ?>" class="d-block" alt="<?= $carouselMovies[$key+2]['title']; ?>">
+                </div>
+            </div>
+        <?php } */ ?>
+
         <?php foreach ($carouselMovies as $index => $movie) {
             /* if ($index === 0) { // Si on est sur le premier film
                 echo '<div class="carousel-item active">';
