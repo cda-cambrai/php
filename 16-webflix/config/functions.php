@@ -48,7 +48,23 @@ function getMovies($orderBy) {
 function searchMovie($q) {
     global $db;
 
-    $query = $db->query('SELECT * FROM `movie` WHERE `title` LIKE "%'.$q.'%"');
+    $orderBy = $_GET['sort'] ?? 'id'; // Si $_GET['sort'] existe on prend sa valeur
+    if (!in_array($orderBy, ['id', 'title', 'duration', 'released_at'])) {
+        // Si $orderBy vaut autre chose que id, title, duration ou released_at
+        // on le force à id
+        $orderBy = 'id';
+    }
+
+    // $q = '%"; DROP table payment;';
+    // Pour éviter les injections SQL, on doit utiliser une requête préparée
+    // Attention, on ne peut pas passer un nom de colonne en paramètre...
+    $query = $db->prepare('SELECT * FROM `movie` WHERE `title` LIKE :q ORDER BY '.$orderBy);
+    // Le bindValue permet de remplacer les paramètres de la requête préparée par
+    // la "vraie" valeur
+    $query->bindValue(':q', '%'.$q.'%');
+    $query->execute(); // Le execute est nécessaire lors d'une requête préparée
+    // On peut aller plus vite et écrire ça
+    // $query->execute([':q' => '%'.$q.'%']);
 
     return $query->fetchAll();
 }

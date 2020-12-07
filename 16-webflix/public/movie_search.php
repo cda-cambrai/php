@@ -38,9 +38,9 @@ $movies = searchMovie($q);
             Trier par
         </button>
         <div class="dropdown-menu">
-            <a class="dropdown-item" href="movie_list.php?sort=title">Nom</a>
-            <a class="dropdown-item" href="movie_list.php?sort=duration">Durée</a>
-            <a class="dropdown-item" href="movie_list.php?sort=released_at">Date</a>
+            <a class="dropdown-item" href="movie_search.php?sort=title&q=<?= $q; ?>">Nom</a>
+            <a class="dropdown-item" href="movie_search.php?sort=duration&q=<?= $q; ?>">Durée</a>
+            <a class="dropdown-item" href="movie_search.php?sort=released_at&q=<?= $q; ?>">Date</a>
         </div>
     </div>
 
