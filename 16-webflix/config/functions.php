@@ -103,3 +103,48 @@ function getCategory($id) {
 
     return $query->fetch(); // Fetch renvoie une seule ligne
 }
+
+/**
+ * Permet de récupère un film dans la BDD
+ */
+function getMovie($id) {
+    global $db;
+
+    $query = $db->prepare('SELECT * FROM `movie` WHERE id = :id');
+    $query->bindValue(':id', $id, PDO::PARAM_INT);
+    $query->execute();
+
+    return $query->fetch();
+}
+
+/**
+ * Convertir des minutes en heures et minutes
+ * 124 devient 2h04
+ */
+function convertToHours($duration) {
+    $hours = floor($duration / 60); // 2.06 devient 2
+    $minutes = $duration - 60 * $hours; // 124 - 60 * 2 = 4
+
+    if ($minutes < 10) {
+        $minutes = '0'.$minutes;
+    }
+
+    return $hours.'h'.$minutes;
+}
+
+/**
+ * Formatte une date du format US
+ * 1975-08-01 -> 01 january 1975
+ */
+function formatDate($date) {
+    // 01 january 1975
+    $formatedDate = date('d F Y', strtotime($date));
+
+    $frenchMonths = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+    $englishMonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+    // On remplace March par mars et ainsi de suite...
+    $formatedDate = str_replace($englishMonths, $frenchMonths, $formatedDate);
+
+    return $formatedDate;
+}

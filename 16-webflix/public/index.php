@@ -117,7 +117,7 @@ $randomMovies = $db->query('SELECT *, YEAR(released_at) as year FROM movie ORDER
                         <!-- Le commentaire HTML se voit dans le code source, pas le PHP -->
                         <!-- <p>Sorti en <?= $movie['year']; ?></p> -->
                         <p class="card-text"><?= $movie['description']; ?></p>
-                        <a href="#" class="btn btn-danger btn-block">Voir le film</a>
+                        <a href="movie_single.php?id=<?= $movie['id']; ?>" class="btn btn-danger btn-block">Voir le film</a>
                     </div>
                     <div class="card-footer text-muted">
                         ★★★☆☆
