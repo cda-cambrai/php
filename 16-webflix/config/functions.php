@@ -68,3 +68,38 @@ function searchMovie($q) {
 
     return $query->fetchAll();
 }
+
+/**
+ * Cette fonction permet d'afficher une 404
+ */
+function display404() {
+    http_response_code(404); // On peut forcer le statut 404 sur la requête
+    echo '<div class="container"> <h1>404</h1> </div>';
+    require '../partials/footer.php'; exit();
+}
+
+/**
+ * Cette fonction permet de récupérer les films par catégories
+ */
+function getMoviesByCategory($id) {
+    global $db;
+
+    $query = $db->prepare('SELECT * FROM `movie` WHERE category_id = :id');
+    $query->bindValue(':id', $id, PDO::PARAM_INT);
+    $query->execute();
+
+    return $query->fetchAll();
+}
+
+/**
+ * Cette fonction permet de récupérer une catégorie seule
+ */
+function getCategory($id) {
+    global $db;
+
+    $query = $db->prepare('SELECT * FROM `category` WHERE id = :id');
+    $query->bindValue(':id', $id, PDO::PARAM_INT);
+    $query->execute();
+
+    return $query->fetch(); // Fetch renvoie une seule ligne
+}

@@ -51,7 +51,9 @@ require '../config/functions.php';
                         </a>
                         <div class="dropdown-menu">
                             <?php foreach ($categories as $category) { ?>
-                                <a class="dropdown-item" href="#"><?= $category['name']; ?></a>
+                                <a class="dropdown-item" href="category_single.php?id=<?= $category['id']; ?>">
+                                    <?= $category['name']; ?>
+                                </a>
                             <?php } ?>
                         </div>
                     </li>
