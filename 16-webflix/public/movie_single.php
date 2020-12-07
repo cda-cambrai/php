@@ -54,6 +54,84 @@ if (!$movie) {
                     ★★★☆☆
                 </div>
             </div>
+
+            <!-- Bloc commentaires -->
+            <div class="card shadow mt-5">
+                <div class="card-body">
+                    <?php
+                        // Traitement du formulaire
+                        if (!empty($_POST)) {
+                            $nickname = $_POST['nickname'];
+                            $message = $_POST['message'];
+                            $note = $_POST['note'];
+                            $errors = [];
+
+                            // On vérifie la validité des champs...
+                            if (empty($nickname)) {
+                                $errors['nickname'] = 'Le pseudo est vide';
+                            }
+
+                            // Le message doit faire 15 caractères minimum
+                            if (strlen($message) < 15) {
+                                $errors['message'] = 'Le message est trop court';
+                            }
+
+                            // La note doit être entre 0 et 5
+                            if ($note < 0 || $note > 5) {
+                                $errors['note'] = 'La note n\'est pas correcte';
+                            }
+
+                            // On fait la requête s'il n'y a pas d'erreurs
+                            if (empty($errors)) {
+
+                                // Requête SQL...
+                                $query = $db->prepare(
+                                    'INSERT INTO `comment` (`nickname`, `message`, `note`, `created_at`, `movie_id`)
+                                     VALUES (:nickname, :message, :note, NOW(), :movie_id)'
+                                );
+                                // On lie les paramètres à la requête préparée
+                                $query->bindValue(':nickname', $nickname);
+                                $query->bindValue(':message', $message);
+                                $query->bindValue(':note', $note, PDO::PARAM_INT);
+                                $query->bindValue(':movie_id', $movie['id'], PDO::PARAM_INT);
+
+                                $query->execute(); // On exécute la requête et c'est tout...
+
+                                // On redirige pour éviter que l'utilisateur ne renvoie le formulaire
+                                // header('Location: movie_single.php?id='.$movie['id']);
+                                echo '<meta http-equiv="refresh" content="0;URL=\'movie_single.php?id='.$movie['id'].'\'">';
+
+                            } else {
+
+                                // Afficher les erreurs...
+                                echo '<div class="container alert alert-danger">';
+                                foreach ($errors as $error) {
+                                    echo '<p class="text-danger m-0">'.$error.'</p>';
+                                }
+                                echo '</div>';
+
+                            }
+                        } // Fin du premier if
+                    ?>
+
+                    <form method="POST">
+                        <label for="nickname">Pseudo</label>
+                        <input type="text" name="nickname" id="nickname" class="form-control"> <br />
+
+                        <label for="message">Message</label>
+                        <textarea name="message" id="message" class="form-control" rows="3"></textarea> <br />
+
+                        <label for="note">Note</label>
+                        <select name="note" id="note" class="form-control">
+                            <?php for ($i = 0; $i <= 5; $i++) { ?>
+                                <option value="<?= $i; ?>"><?= $i; ?>/5</option>
+                            <?php } ?>
+                        </select> <br />
+
+                        <button class="btn btn-danger btn-block">Envoyer</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>
