@@ -59,10 +59,34 @@ if (!$movie) {
             <div class="card shadow mt-5">
                 <div class="card-body">
                     <?php
+                        // Récupèrer les commentaires
+                        $comments = getCommentsByMovie($movie['id']);
+
+                        foreach ($comments as $comment) {
+                            // var_dump($comment);
+                    ?>
+
+                        <div class="mb-3">
+                            <p class="mb-0">
+                                <strong><?= $comment['nickname']; ?></strong>
+                                <span class="small-text">
+                                    le <?= formatDate($comment['created_at'], 'd/m/Y à H\hi'); ?>
+                                </span>
+                            </p>
+                            <p>
+                                <?= $comment['message']; ?>
+                                <?= $comment['note']; ?>/5
+                            </p>
+                        </div>
+                        <hr />
+
+                    <?php } ?>
+
+                    <?php
                         // Traitement du formulaire
                         if (!empty($_POST)) {
-                            $nickname = $_POST['nickname'];
-                            $message = $_POST['message'];
+                            $nickname = htmlspecialchars($_POST['nickname']); // Transforme <script> en &gt;script&lt
+                            $message = strip_tags($_POST['message']); // Supprime <script> de la chaine
                             $note = $_POST['note'];
                             $errors = [];
 

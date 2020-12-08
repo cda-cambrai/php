@@ -136,9 +136,9 @@ function convertToHours($duration) {
  * Formatte une date du format US
  * 1975-08-01 -> 01 january 1975
  */
-function formatDate($date) {
+function formatDate($date, $format = 'd F Y') {
     // 01 january 1975
-    $formatedDate = date('d F Y', strtotime($date));
+    $formatedDate = date($format, strtotime($date));
 
     $frenchMonths = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
     $englishMonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -147,4 +147,19 @@ function formatDate($date) {
     $formatedDate = str_replace($englishMonths, $frenchMonths, $formatedDate);
 
     return $formatedDate;
+}
+
+/**
+ * Permet de récupèrer les commentaires d'un film
+ */
+function getCommentsByMovie($id) {
+    global $db;
+
+    $query = $db->prepare(
+        'SELECT * FROM `comment` WHERE movie_id = :id'
+    );
+    $query->bindValue(':id', $id, PDO::PARAM_INT);
+    $query->execute();
+
+    return $query->fetchAll();
 }
