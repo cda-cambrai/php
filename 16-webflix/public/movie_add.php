@@ -23,7 +23,7 @@ $title = $description = $cover = $duration = $released_at = $categorySelected = 
 if (!empty($_POST)) {
     $title = htmlspecialchars($_POST['title']); // On se protège des failles XSS
     $description = htmlspecialchars($_POST['description']);
-    $cover = $_POST['cover'];
+    $cover = $_FILES['cover']; // Image uploadée
     $duration = $_POST['duration'];
     $released_at = $_POST['released_at'];
     $categorySelected = $_POST['category'];
@@ -50,6 +50,32 @@ if (!empty($_POST)) {
         $errors['released_at'] = 'La date n\'est pas valide';
     }
 
+    // Ici, on peut faire l'upload...
+    // On s'assure que le fichier fait moins de 10Mo...
+    // On s'assure aussi que c'est bien une image...
+    $allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+    $maxSize = 10 * 1024 * 1024;
+
+    // S'il n'y a pas d'erreur, on fait l'upload...
+    if ($cover['error'] === 0 && $cover['size'] < $maxSize && in_array($cover['type'], $allowedTypes)) {
+        // On s'assure que le dossier existe...
+        if (!is_dir('assets/uploads')) {
+            mkdir('assets/uploads');
+        }
+
+        // On doit générer le nom de l'image
+        $extension = pathinfo($cover['name'])['extension'];
+        // Le super film => le-super-film.EXT
+        $fileName = str_replace(' ', '-', strtolower($title)).'.'.$extension;
+
+        // On doit déplacer le fichier temporaire dans le dossier
+        move_uploaded_file($cover['tmp_name'], 'assets/uploads/'.$fileName);
+
+    } else {
+        // S'il y a une erreur avec le fichier...
+        $errors['cover'] = 'Le fichier est trop lourd ou le format est incorrect...';
+    }
+
     // On fait la requête s'il n'y a pas d'erreurs
     if (empty($errors)) {
 
@@ -59,7 +85,7 @@ if (!empty($_POST)) {
         );
         $query->bindValue(':title', $title);
         $query->bindValue(':description', $description);
-        $query->bindValue(':cover', $cover);
+        $query->bindValue(':cover', $fileName);
         $query->bindValue(':duration', $duration, PDO::PARAM_INT);
         $query->bindValue(':released_at', $released_at);
         $query->bindValue(':category', $categorySelected, PDO::PARAM_INT);
@@ -90,7 +116,7 @@ if (!empty($_POST)) {
 
     <div class="row">
         <div class="col-lg-6 offset-lg-3">
-            <form method="POST">
+            <form method="POST" enctype="multipart/form-data">
                 <label for="title">Titre</label>
                 <input type="text" name="title" id="title" class="form-control" value="<?= $title; ?>"> <br />
 
@@ -98,7 +124,7 @@ if (!empty($_POST)) {
                 <textarea name="description" id="description" class="form-control"><?= $description; ?></textarea> <br />
 
                 <label for="cover">Jaquette</label>
-                <input type="text" name="cover" id="cover" class="form-control"> <br />
+                <input type="file" name="cover" id="cover" class="form-control"> <br />
 
                 <label for="duration">Durée</label>
                 <input type="text" name="duration" id="duration" class="form-control" value="<?= $duration; ?>"> <br />
