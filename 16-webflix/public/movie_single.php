@@ -1,5 +1,7 @@
 <?php
 
+ob_start(); // Permet de corriger le soucis avec le header
+
 /**
  * Récupèrer les informations du film
  * 1. Sur chaque lien "Voir le film", on doit ajouter un lien vers
@@ -30,6 +32,14 @@ $movie = getMovie($id);
 // On renvoie une 404 si le film n'existe pas
 if (!$movie) {
     display404();
+}
+
+// Si l'utilisateur vient d'ajouter ce film
+// On affiche un message de succès
+if (isset($_GET['status']) && $_GET['status'] === 'success') {
+    echo '<div class="container alert alert-success">
+        Le film a bien été ajouté...
+    </div>';
 }
 
 ?>
@@ -134,8 +144,8 @@ if (!$movie) {
                                 $query->execute(); // On exécute la requête et c'est tout...
 
                                 // On redirige pour éviter que l'utilisateur ne renvoie le formulaire
-                                // header('Location: movie_single.php?id='.$movie['id']);
-                                echo '<meta http-equiv="refresh" content="0;URL=\'movie_single.php?id='.$movie['id'].'\'">';
+                                header('Location: movie_single.php?id='.$movie['id']);
+                                // echo '<meta http-equiv="refresh" content="0;URL=\'movie_single.php?id='.$movie['id'].'\'">';
 
                             } else {
 
