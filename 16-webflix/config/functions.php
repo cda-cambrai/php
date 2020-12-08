@@ -163,3 +163,19 @@ function getCommentsByMovie($id) {
 
     return $query->fetchAll();
 }
+
+/**
+ * Récupère la moyenne d'un film
+ */
+function getAverageMovie($id) {
+    global $db;
+
+    $query = $db->prepare(
+        'SELECT AVG(note) FROM `comment` WHERE movie_id = :id'
+    );
+    $query->bindValue(':id', $id, PDO::PARAM_INT);
+    $query->execute();
+
+    // On récupère la valeur de la première colonne de la ligne de résultat
+    return round($query->fetchColumn(), 2);
+}

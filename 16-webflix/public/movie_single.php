@@ -51,7 +51,19 @@ if (!$movie) {
                     </div>
                 </div> <!-- Fin .card-body -->
                 <div class="card-footer text-muted">
-                    ★★★☆☆
+                    <?php
+                        // On va récupèrer la note moyenne du film dans la BDD
+                        // grâce aux commentaires
+                        $averageMovie = getAverageMovie($movie['id']);
+                        echo $averageMovie.'/5';
+
+                        // Boucle pour afficher les étoiles
+                        for ($i = 1; $i <= 5; $i++) {
+                            // Tant que $i dans la boucle est inférieur à
+                            // la moyenne, on affiche une étoile pleine
+                            echo ($i <= $averageMovie) ? '★' : '☆';
+                        }
+                    ?>
                 </div>
             </div>
 
