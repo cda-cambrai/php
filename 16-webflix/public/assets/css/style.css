@@ -11,6 +11,10 @@ body {
     min-height: 50px;
 }
 
+.card-text {
+    min-height: 50px;
+}
+
 .carousel-item img {
     height: 300px;
     object-fit: cover;

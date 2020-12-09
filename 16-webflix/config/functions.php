@@ -254,3 +254,21 @@ function getActorWithMovies($id) {
 
     return $query->fetchAll();
 }
+
+/**
+ * Permet de tronquer un texte
+ * On peut aussi utiliser mb_strimwidth
+ */
+function truncate($text) {
+    // Le mb_* permet de "détecter" l'encodage des chaines
+    // En l'occurence UTF-8...
+
+    if (mb_strlen($text) <= 50) {
+        return $text;
+    }
+
+    // Quand le texte dépasse les 50 caractères...
+    $text = mb_substr($text, 0, 50);
+
+    return $text.'...';
+}

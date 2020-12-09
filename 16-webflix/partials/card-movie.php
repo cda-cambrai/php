@@ -9,7 +9,9 @@
             <!-- Attention entre commentaire HTML et commentaire PHP -->
             <!-- Le commentaire HTML se voit dans le code source, pas le PHP -->
             <!-- <p>Sorti en <?= $movie['year']; ?></p> -->
-            <p class="card-text"><?= $movie['description']; ?></p>
+            <p class="card-text">
+                <?= truncate($movie['description']); ?>
+            </p>
             <a href="movie_single.php?id=<?= $movie['id']; ?>" class="btn btn-danger btn-block">Voir le film</a>
         </div>
         <div class="card-footer text-muted">
