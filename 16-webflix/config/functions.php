@@ -202,3 +202,55 @@ function getActorsFromMovie($id) {
 
     return $query->fetchAll();
 }
+
+/**
+ * Récupère un acteur dans la BDD
+ */
+function getActor($id) {
+    global $db;
+
+    $query = $db->prepare(
+        'SELECT * FROM `actor`
+         WHERE id = :id'
+    );
+    $query->bindValue(':id', $id, PDO::PARAM_INT);
+    $query->execute();
+
+    return $query->fetch();
+}
+
+/**
+ * Récupère tous les films d'un acteur
+ */
+function getMoviesFromActor($id) {
+    global $db;
+
+    $query = $db->prepare(
+        'SELECT * FROM `movie_has_actor` `mha`
+         INNER JOIN `movie` `m` ON `m`.`id` = `mha`.`movie_id`
+         WHERE `mha`.`actor_id` = :id'
+    );
+    $query->bindValue(':id', $id, PDO::PARAM_INT);
+    $query->execute();
+
+    return $query->fetchAll();
+}
+
+/**
+ * Jointure pour avoir un acteur et ses films
+ */
+function getActorWithMovies($id) {
+    global $db;
+
+    $query = $db->prepare(
+        'SELECT `m`.`id`, `title`, `description`, `released_at`, `duration`, `cover`, `name`, `firstname`
+         FROM `movie_has_actor` `mha`
+         INNER JOIN `movie` `m` ON `m`.`id` = `mha`.`movie_id`
+         RIGHT JOIN `actor` `a` ON `a`.`id` = `mha`.`actor_id`
+         WHERE `a`.`id` = :id'
+    );
+    $query->bindValue(':id', $id, PDO::PARAM_INT);
+    $query->execute();
+
+    return $query->fetchAll();
+}

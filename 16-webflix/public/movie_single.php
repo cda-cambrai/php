@@ -89,7 +89,7 @@ if (isset($_GET['status']) && $_GET['status'] === 'success') {
                                          *    (On peut enchainer les join...)
                                          */
                                     ?>
-                                    <a href="???"><?= $fullName; ?></a>
+                                    <a href="actor_single.php?id=<?= $actor['id']; ?>"><?= $fullName; ?></a>
 
                                     <a href="https://fr.wikipedia.org/wiki/<?= $fullName; ?>" target="_blank">
                                         (Wikipedia)
