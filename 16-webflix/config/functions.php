@@ -184,3 +184,21 @@ function getAverageMovie($id) {
     // On récupère la valeur de la première colonne de la ligne de résultat
     return round($query->fetchColumn(), 2);
 }
+
+/**
+ * Récupèrer les acteurs d'un film
+ */
+function getActorsFromMovie($id) {
+    global $db;
+
+    $query = $db->prepare(
+        'SELECT * FROM `movie_has_actor` `mha`
+         INNER JOIN `actor` `a`
+         ON `mha`.`actor_id` = `a`.`id`
+         WHERE `movie_id` = :id'
+    );
+    $query->bindValue(':id', $id, PDO::PARAM_INT);
+    $query->execute();
+
+    return $query->fetchAll();
+}

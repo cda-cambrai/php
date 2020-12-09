@@ -62,6 +62,43 @@ if (isset($_GET['status']) && $_GET['status'] === 'success') {
                     <div>
                         <?= $movie['description']; ?>
                     </div>
+
+                    <?php
+                        /**
+                         * Affichage des acteurs
+                         * 
+                         * On va essayer d'afficher les acteurs du film dans un ul
+                         */
+                        $actors = getActorsFromMovie($movie['id']);
+                    ?>
+                    <div class="mt-5">
+                        <h5>Avec :</h5>
+
+                        <ul class="list-unstyled">
+                            <?php foreach ($actors as $actor) {
+                                // Je "génére" le nom complet de l'acteur
+                                $fullName = $actor['firstname'].' '.$actor['name'];
+                            ?>
+                                <li>
+                                    <?php
+                                        /**
+                                         * Je vous laisse créer la page pour voir un acteur seul
+                                         * 1. Ecrire une requête pour afficher le nom de l'acteur
+                                         * 2. Ecrire une autre requête pour afficher les films de cet acteur
+                                         * 3. BONUS: Faire tout cela en 1 seule requête...
+                                         *    (On peut enchainer les join...)
+                                         */
+                                    ?>
+                                    <a href="???"><?= $fullName; ?></a>
+
+                                    <a href="https://fr.wikipedia.org/wiki/<?= $fullName; ?>" target="_blank">
+                                        (Wikipedia)
+                                    </a>
+                                </li>
+                            <?php } ?>
+                        </ul>
+                    </div>
+
                 </div> <!-- Fin .card-body -->
                 <div class="card-footer text-muted">
                     <?php
