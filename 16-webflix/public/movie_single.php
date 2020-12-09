@@ -34,6 +34,9 @@ if (!$movie) {
     display404();
 }
 
+// On récupère la catégorie après avoir vérifié que le film existe
+// $category = getCategory($movie['category_id']);
+
 // Si l'utilisateur vient d'ajouter ce film
 // On affiche un message de succès
 if (isset($_GET['status']) && $_GET['status'] === 'success') {
@@ -52,7 +55,7 @@ if (isset($_GET['status']) && $_GET['status'] === 'success') {
         <div class="col-lg-6">
             <div class="card shadow">
                 <div class="card-body">
-                    <h1><?= $movie['title']; ?></h1>
+                    <h1><?= $movie['title']; ?> <span class="small-text"><?= $movie['category_name']; ?></span></h1>
                     <p>Durée: <?= convertToHours($movie['duration']); ?></p>
                     <p>Sorti le <?= formatDate($movie['released_at']); ?></p>
 

@@ -54,7 +54,10 @@ require '../config/functions.php';
                                 <a class="dropdown-item" href="category_single.php?id=<?= $category['id']; ?>">
                                     <?= $category['name']; ?>
                                 </a>
-                            <?php } ?>
+                            <?php }
+                            // Le unset n'est pas vraiment important
+                            // Mais pour les puristes...
+                            // unset($category); ?>
                         </div>
                     </li>
                 </ul>
