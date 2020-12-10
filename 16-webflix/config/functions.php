@@ -78,6 +78,12 @@ function display404() {
     require '../partials/footer.php'; exit();
 }
 
+function display403() {
+    http_response_code(403); // On peut forcer le statut 403 sur la requête
+    echo '<div class="container"> <h1>403</h1> </div>';
+    require '../partials/footer.php'; exit();
+}
+
 /**
  * Cette fonction permet de récupérer les films par catégories
  */
@@ -271,4 +277,23 @@ function truncate($text) {
     $text = mb_substr($text, 0, 50);
 
     return $text.'...';
+}
+
+/**
+ * Permet de savoir si on est connecté en tant qu'administrateur
+ */
+function isAdmin() {
+    $admins = ['matthieu@boxydev.com']; // On définit la liste des admins
+
+    if (isset($_SESSION['user'])) { // Si le user est connecté
+        $user = $_SESSION['user'];
+    } else { // Sinon on retourne directement false il n'est pas connecté
+        return false;
+    }
+
+    if (in_array($user['email'], $admins)) {
+        return true; // Ok si l'email du user est bien présent dans le tableau d'administrateurs
+    }
+
+    return false; // Si aucun des if suivants n'est exécuté, on retourne false
 }

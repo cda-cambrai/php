@@ -16,6 +16,12 @@
 
 require '../partials/header.php';
 
+// Vérifie que l'utilisateur a le droit d'accèder à la page
+if (!isAdmin()) {
+    // On affiche bien une 403 pour indiquer que la page est interdite d'accès
+    display403();
+}
+
 // On initialise toutes les valeurs à null pour pouvoir les utiliser dans le formulaire
 $title = $description = $cover = $duration = $released_at = $categorySelected = null;
 
