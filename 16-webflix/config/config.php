@@ -12,3 +12,6 @@
 */
 
 $pageActive = basename($_SERVER['PHP_SELF']);
+
+// On démarre la session...
+session_start();

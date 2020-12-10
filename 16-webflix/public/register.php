@@ -140,6 +140,6 @@ if (isset($_GET['status']) && $_GET['status'] === 'success') {
         </div>
     </div>
 
-<?php }
+<?php } // Fin du else
 
 require '../partials/footer.php';

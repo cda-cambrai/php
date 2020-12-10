@@ -89,6 +89,13 @@ $carouselMovies = $db->query('SELECT * FROM movie WHERE cover IS NOT NULL ORDER 
 </div>
 
 <?php
+// Si l'utilisateur vient de se connecter
+if (isset($_GET['status']) && $_GET['status'] === 'success') {
+    echo '<div class="container alert alert-success">
+        Vous êtes bien connecté.
+    </div>';
+}
+
 /**
  * 1. Sur cette page, on doit afficher 4 films aléatoires de la base de données.
  * 2. Pour les étoiles et les images, tout sera envoyé sur Discord
