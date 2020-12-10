@@ -65,14 +65,30 @@ require '../config/functions.php';
                     <input class="form-control mr-sm-2" type="search" name="q" placeholder="Rechercher...">
                     <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Go</button>
                 </form>
-                
+
                 <ul class="navbar-nav ml-4">
-                    <li class="nav-item">
-                        <a href="login.php" class="btn btn-danger">Connexion</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="register.php" class="nav-link">Inscription</a>
-                    </li>
+                    <?php // Si on est connecté, on affiche un menu différent
+                    if (isset($_SESSION['user'])) { ?>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+                                <img src="https://unavatar.now.sh/<?= $_SESSION['user']['email']; ?>" width="40" alt=""
+                                     class="rounded-circle mr-2"
+                                >
+                                <?= $_SESSION['user']['username']; ?>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="#">Mon compte</a>
+                                <a class="dropdown-item" href="#">Déconnexion</a>
+                            </div>
+                        </li>
+                    <?php } else { ?>
+                        <li class="nav-item">
+                            <a href="login.php" class="btn btn-danger">Connexion</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="register.php" class="nav-link">Inscription</a>
+                        </li>
+                    <?php } ?>
                 </ul>
             </div>
         </div> <!-- Fin du .container -->
