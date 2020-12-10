@@ -24,3 +24,9 @@ body {
 .small-text {
     font-size: 10px;
 }
+
+.sticky-to-bottom {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
