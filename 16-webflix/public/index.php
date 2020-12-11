@@ -71,7 +71,7 @@ $carouselMovies = $db->query('SELECT * FROM movie WHERE cover IS NOT NULL ORDER 
 
                 <img src="assets/uploads/<?= $movie['cover']; ?>" class="d-block" alt="<?= $movie['title']; ?>">
 
-            <?php if (($index + 1) % 3 === 0) { ?>
+            <?php if (($index + 1) % 3 === 0 || ($index + 1) === count($carouselMovies)) { ?>
                     </div> <!-- Fin de la div .d-flex -->
                 </div>
             <?php } ?>

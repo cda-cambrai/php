@@ -139,6 +139,23 @@ CREATE TABLE IF NOT EXISTS `webflix`.`payment` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+ALTER TABLE `webflix`.`comment` 
+DROP FOREIGN KEY `fk_comment_movie1`;
+ALTER TABLE `webflix`.`comment` 
+ADD CONSTRAINT `fk_comment_movie1`
+  FOREIGN KEY (`movie_id`)
+  REFERENCES `webflix`.`movie` (`id`)
+  ON DELETE CASCADE
+  ON UPDATE NO ACTION;
+
+ALTER TABLE `webflix`.`movie_has_actor` 
+DROP FOREIGN KEY `fk_movie_has_actor_movie1`;
+ALTER TABLE `webflix`.`movie_has_actor` 
+ADD CONSTRAINT `fk_movie_has_actor_movie1`
+  FOREIGN KEY (`movie_id`)
+  REFERENCES `webflix`.`movie` (`id`)
+  ON DELETE CASCADE
+  ON UPDATE NO ACTION;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
