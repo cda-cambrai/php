@@ -8,8 +8,13 @@ if ($(document).height() <= $(window).height()) {
 }
 
 // On doit exécuter le code précèdent au resize de la fenêtre
-// @todo Régler le petit soucis du footer
 $(window).resize(function () {
+
+    // Correction bug quand on reduit la fenêtre sur la hauteur
+    if ($('footer').offset().top <= $('html').height()) {
+        $('footer').removeClass('sticky-to-bottom');
+    }
+
     if ($(document).height() <= $(window).height()) {
         $('footer').addClass('sticky-to-bottom');
     } else {
