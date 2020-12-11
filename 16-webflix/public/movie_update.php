@@ -38,7 +38,7 @@ if (!$movie) {
     display404();
 }
 
-// On initialise toutes les valeurs à ce qu'on récupère dans la BDD pour pouvoir les utiliser dans le formulaire
+// On initialise toutes les valeurs avec ce qu'on récupère de la BDD pour pouvoir les utiliser dans le formulaire
 $title = $movie['title'];
 $description = $movie['description'];
 $cover = $movie['cover'];
@@ -98,6 +98,8 @@ if (!empty($_POST)) {
         // On doit déplacer le fichier temporaire dans le dossier
         move_uploaded_file($cover['tmp_name'], 'assets/uploads/'.$fileName);
 
+    } else if ($cover['error'] === 4) { // Dans le cas où on upload pas une nouvelle jaquette
+        $fileName = $movie['cover']; // Le fileName est toujours ce qui est dans la base
     } else {
         // S'il y a une erreur avec le fichier...
         $errors['cover'] = 'Le fichier est trop lourd ou le format est incorrect...';
@@ -107,8 +109,7 @@ if (!empty($_POST)) {
     if (empty($errors)) {
 
         $query = $db->prepare(
-            'INSERT INTO `movie` (`title`, `description`, `cover`, `duration`, `released_at`, `category_id`)
-             VALUES (:title, :description, :cover, :duration, :released_at, :category)'
+            'UPDATE `movie` SET title = :title, description = :description, cover = :cover, duration = :duration,   released_at = :released_at, category_id = :category WHERE id = :id'
         );
         $query->bindValue(':title', $title);
         $query->bindValue(':description', $description);
@@ -116,13 +117,12 @@ if (!empty($_POST)) {
         $query->bindValue(':duration', $duration, PDO::PARAM_INT);
         $query->bindValue(':released_at', $released_at);
         $query->bindValue(':category', $categorySelected, PDO::PARAM_INT);
+        $query->bindValue(':id', $movie['id'], PDO::PARAM_INT);
         $query->execute();
 
         // Si tout va bien, je redirige et je prévois un message de succès...
-        header('Location: movie_single.php?id='.$db->lastInsertId().'&status=success');
-        // lastInsertId() permet de récupèrer le dernier identifiant de la BDD donc
-        // celui du nouveau film
-        // header('Location: movie_list.php'); // On redirige vers la liste une fois que le film est ajouté
+        header('Location: movie_single.php?id='.$movie['id'].'&status=update');
+        // header('Location: movie_list.php'); // On redirige vers la liste une fois que le film est modifié
 
     } else {
         
@@ -139,7 +139,7 @@ if (!empty($_POST)) {
 ?>
 
 <div class="container my-4">
-    <h1 class="text-center">Ajouter un film</h1>
+    <h1 class="text-center">Modifier un film</h1>
 
     <div class="row">
         <div class="col-lg-6 offset-lg-3">
@@ -170,7 +170,7 @@ if (!empty($_POST)) {
                     <?php } ?>
                 </select> <br />
 
-                <button class="btn btn-danger btn-block">Ajouter</button>
+                <button class="btn btn-danger btn-block">Modifier</button>
             </form>
         </div>
     </div>

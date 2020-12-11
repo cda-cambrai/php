@@ -43,6 +43,10 @@ if (isset($_GET['status']) && $_GET['status'] === 'success') {
     echo '<div class="container alert alert-success">
         Le film a bien été ajouté...
     </div>';
+} else if (isset($_GET['status']) && $_GET['status'] === 'update') {
+    echo '<div class="container alert alert-success">
+        Le film a bien été modifié...
+    </div>';
 }
 
 ?>
